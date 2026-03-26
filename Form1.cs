@@ -37,15 +37,15 @@ namespace SimpleCalculator
             try
             {
                 Button button = (Button)sender;
-
+                
                 if (!int.TryParse(txtInput.Text, out int currentValue))
                 {
                     MessageBox.Show("유효한 숫자를 입력하세요.", "입력 오류");
                     return;
                 }
 
-                // 이전 operation이 있으면 계산 수행
-                if (!string.IsNullOrEmpty(operationPerformed) && resultValue != 0)
+                // 이전 operation이 있고 resultValue가 설정되어 있으면 계산 수행
+                if (!string.IsNullOrEmpty(operationPerformed))
                 {
                     int result = PerformOperation(resultValue, currentValue, operationPerformed);
                     resultValue = result;
@@ -59,6 +59,7 @@ namespace SimpleCalculator
 
                 operationPerformed = button.Text;
                 isOperationPerformed = true;
+                txtInput.Clear();
             }
             catch (Exception ex)
             {
@@ -68,21 +69,26 @@ namespace SimpleCalculator
 
         private int PerformOperation(int first, int second, string operation)
         {
-            switch(operation)
+            switch (operation)
             {
                 case "+":
                     return first + second;
                 case "-":
                     return first - second;
                 case "*":
+                case "X":
+                case "x":
+                case "×":
                     return first * second;
                 case "/":
+                case "÷":
                     if (second == 0)
                         throw new InvalidOperationException("0으로 나눌 수 없습니다.");
                     return first / second;
                 default:
                     return second;
-            }
+            
+        }
         }
 
         private void btnAdd_Click(object sender, EventArgs e) => btnOperation_Click(sender, e);
