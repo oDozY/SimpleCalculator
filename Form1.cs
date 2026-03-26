@@ -1,12 +1,12 @@
 namespace SimpleCalculator
 {
-    public partial class SimpleCalculator : Form
+    public partial class Form1 : Form
     {
         int resultValue = 0;
         string operationPerformed = "";
         bool isOperationPerformed = false;
 
-        public SimpleCalculator()
+        public Form1()
         {
             InitializeComponent();
         }
